@@ -69,4 +69,4 @@ class TraderMatcher:
         self.position_dict[strategy_id] = position
 
     def get_position(self, strategy_id:str):
-        return self.position_dict.get(strategy_id, {})
+        return self.position_dict.get(strategy_id, {}).copy()
