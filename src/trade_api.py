@@ -1,3 +1,4 @@
+from cvxpy import pos
 import pandas as pd
 from datetime import datetime
 from loguru import logger
@@ -12,7 +13,7 @@ class PositionRecorder:
         strategy_id:str,
         position_dict:dict[str, float]
     ):
-        logger.trace(f"Record {strategy_id} position at {record_datetime}: {position_dict}")
+        # logger.trace(f"Record {strategy_id} position at {record_datetime}: {position_dict}")
         df = pd.DataFrame(position_dict.items(), columns=["symbol", "quantity"])
         df["datetime"] = record_datetime
         df["strategy"] = strategy_id
@@ -34,7 +35,7 @@ class TraderMatcher:
         data:pd.DataFrame
     ):
         # 更新时间和数据, 以便撮合时使用
-        logger.trace(f"Receive data at {dt}")
+        logger.info(f"Receive data at {dt}")
         self.dt = dt
         self.data = data
         return self
@@ -58,9 +59,13 @@ class TraderMatcher:
         quantity:float
     ):
         # 如果需要撮合, 在这里实现
+        if quantity == 0:
+            return
         logger.trace(f"Execute trade: {strategy_id} {symbol} {quantity}")
         position = self.get_position(strategy_id)
         position[symbol] = position.get(symbol, 0) + quantity
+        if abs(position[symbol]) < 1e-6: # 清理0仓位
+            del position[symbol]
         self.position_dict[strategy_id] = position
 
     def get_position(self, strategy_id:str):
