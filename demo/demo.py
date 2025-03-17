@@ -1,12 +1,11 @@
 import sys, os
 # 添加父文件夹到 sys.path, 策略回测文件夹可以不放在框架下, 但需要按此方法添加框架路径
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from datetime import datetime
 
 import pandas as pd
 
-from src import *
+from easy_backtest import *
 
 class DemoStrategy(Strategy):
     def __init__(self, id: str):
