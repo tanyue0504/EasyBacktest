@@ -4,11 +4,11 @@ from loguru import logger
 import pandas as pd
 
 from .strategy import Strategy
-from .dataset import DataSet
+from .dataset import Dataset
 from .trade_api import TraderMatcher
 
 class BacktestEngine:
-    def __init__(self, dataset:DataSet):
+    def __init__(self, dataset:Dataset):
         self.flag:bool = False # 是否开始回测标志
         self.trader_api:TraderMatcher = TraderMatcher() # 交易接口
         self.strategy_dict:dict[str, Strategy] = {} # 策略字典

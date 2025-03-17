@@ -28,7 +28,7 @@ if __name__ == '__main__':
     })
 
     # 创建数据集实例
-    data_set = DataSet(data)
+    data_set = Dataset(data)
 
     # 创建回测引擎实例
     bacttest_engine = BacktestEngine(data_set)
