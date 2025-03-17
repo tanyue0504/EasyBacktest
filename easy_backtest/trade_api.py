@@ -20,7 +20,9 @@ class PositionRecorder:
         self.record_list.append(df)
 
     def get_record(self):
-        return pd.concat(self.record_list)
+        if self.record_list:
+            return pd.concat(self.record_list)
+        return pd.DataFrame()
 
 class TraderMatcher:
     def __init__(self, recorder:PositionRecorder = None):

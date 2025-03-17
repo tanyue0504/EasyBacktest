@@ -21,7 +21,7 @@ class Strategy(ABC):
         """
         raise NotImplementedError
     
-    def get_position(self):
+    def get_position(self) -> dict[str, float]:
         """
         Get the current position of this strategy
         Engine will inject this method into the strategy instance
