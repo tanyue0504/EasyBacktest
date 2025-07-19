@@ -8,6 +8,12 @@ from .dataset import Dataset
 from .trade_api import TraderMatcher
 
 class BacktestEngine:
+    """
+    回测引擎类
+    1. 初始化时传入数据集
+    2. 添加策略
+    3. 调用backtest方法, 直接运行回测并返回结果
+    """
     def __init__(self, dataset:Dataset):
         self.flag:bool = False # 是否开始回测标志
         self.trader_api:TraderMatcher = TraderMatcher() # 交易接口
