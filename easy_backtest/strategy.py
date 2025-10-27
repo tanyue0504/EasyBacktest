@@ -5,7 +5,6 @@ import pandas as pd
 
 class Strategy(ABC):
     def __init__(self, id:str):
-        super().__init__()
         self.id = id
 
     @abstractmethod

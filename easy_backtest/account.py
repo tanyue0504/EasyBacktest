@@ -1,23 +1,19 @@
-import pandas as pd
 from datetime import datetime
-class Account:
-    def __init__(self):
-        self.trade_records:list[dict] = []
-        self.position_dict:dict[str, float] = {}
-
-    def execute(self, dt:datetime, symbol:str, quantity:float, price:float=None):
-        self.trade_records.append({
-            "dt": dt,
-            "symbol": symbol,
-            "quantity": quantity,
-            "price": price,
-        })
-        if symbol not in self.position_dict:
-            self.position_dict[symbol] = 0.0
-        self.position_dict[symbol] += quantity
-
-    def get_position(self) -> dict[str, float]:
-        return self.position_dict.copy()
     
-    def get_trade_records(self) -> pd.DataFrame:
-        return pd.DataFrame(self.trade_records)
+class Account:
+    def __init__(self, epsilon=8):
+        self.position_dict = {}
+        self.position_version = 0
+        self.epsilon = epsilon
+        self.e = 10**(-epsilon)
+    
+    def execute(self, dt: datetime, symbol: str, quantity: float):
+        if abs(quantity) < self.e:
+            return
+        self.position_version += 1
+        self.position_dict[symbol] = self.position_dict.get(symbol, 0.0) + quantity
+
+    def get_position(self, drop_empty: bool = False) -> dict[str, float]:
+        if drop_empty:
+            return {k: v for k, v in self.position_dict.items() if abs(v) >= self.e}
+        return self.position_dict.copy()
