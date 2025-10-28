@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from datetime import datetime
+from pandas import DataFrame
 
 class Dataset(ABC):
     """
@@ -8,5 +10,5 @@ class Dataset(ABC):
     """
     
     @abstractmethod
-    def __iter__(self):
+    def __iter__(self) -> tuple[datetime, DataFrame]:
         pass
