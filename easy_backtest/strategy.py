@@ -10,7 +10,7 @@ class Strategy(ABC):
     def on_data(self, dt:datetime, data:pd.DataFrame):
         pass
 
-    def execute(self, dt:datetime, data:pd.DataFrame):
+    def execute(self, symbol:str, quantity:float):
         raise NotImplementedError('This method need be injected by BacktestEngine')
 
     def get_position(self, drop_empty:float = None) -> dict[str, float]:

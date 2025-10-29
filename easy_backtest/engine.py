@@ -25,5 +25,5 @@ class BacktestEngine:
     def run(self):
         with self.recorder:
             for dt, data in self.dataset:
-                self.dt = dt
+                self.dt = dt.isoformat()
                 self.strategy.on_data(dt, data)

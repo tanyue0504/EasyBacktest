@@ -19,7 +19,7 @@ class Recorder:
     def __enter__(self):
         """打开文件并返回记录器实例"""
         self.file = open(self.path, mode='w', encoding='utf-8-sig')
-        self.buffer.clear()
+        self.buffer = ["dt,symbol,quantity,position\n"]  # 写入表头
         return self
         
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -48,7 +48,7 @@ class Recorder:
             else:
                 self.buffer.clear()
 
-    def record(self, dt: datetime, symbol: str, quantity: float, position: float):
+    def record(self, dt: str, symbol: str, quantity: float, position: float):
         """
         记录一条数据
         
@@ -59,7 +59,7 @@ class Recorder:
             position: 交易后的持仓量
         """
         self.buffer.append(",".join([
-            str(int(dt.timestamp())),
+            dt,
             symbol,
             str(quantity),
             str(position),
