@@ -6,7 +6,7 @@ class Account:
         self.position_dict[symbol] = self.position_dict.get(symbol, 0.0) + quantity
         return self.position_dict[symbol]
 
-    def get_position(self, drop_empty:float = None) -> dict[str, float]:
+    def get_position(self, drop_empty:float = 1e-8) -> dict[str, float]:
         if drop_empty:
             return {k:v for k,v in self.position_dict.items() if abs(v) > drop_empty}
         return self.position_dict.copy()
